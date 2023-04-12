@@ -74,12 +74,12 @@ def start_screen():
     p2_button_rect = pygame.Rect(2 * screen.get_width() // 3 - 50, 350, 100, 50)
     pygame.draw.rect(screen, black, p2_button_rect)
 
-    p1_button_text = font.render("Player 1", True, white)
+    p1_button_text = font.render("Player", True, white)
     p1_button_text_rect = p1_button_text.get_rect()
     p1_button_text_rect.center = p1_button_rect.center
     screen.blit(p1_button_text, p1_button_text_rect)
 
-    p2_button_text = font.render("Player 2", True, white)
+    p2_button_text = font.render("AI", True, white)
     p2_button_text_rect = p2_button_text.get_rect()
     p2_button_text_rect.center = p2_button_rect.center
     screen.blit(p2_button_text, p2_button_text_rect)
@@ -102,10 +102,10 @@ def check_score(board, turn):
 def check_game_over(board):
     global game_over
     if board[0] == 1:
-        print("Player 1 wins!")
+        print("Player wins!")
         game_over = True
     elif board[0] == -1:
-        print("Player 2 wins!")
+        print("AI wins!")
         game_over = True
     elif len(board) == 1:
         print("Tie!")
@@ -212,9 +212,9 @@ def scoreboard(numbers):
         # Check if Player 1 has won the game
         number = font.render(str(numbers[0]), True, (0, 0, 0))
         if numbers[0] == 1:
-            text = font.render("Player 1 wins!", True, (0, 0, 0))
+            text = font.render("Player  wins!", True, (0, 0, 0))
         elif numbers[0] == -1:
-            text = font.render("Player 2 wins!", True, (0, 0, 0))
+            text = font.render("AI wins!", True, (0, 0, 0))
         else:
             text = font.render("Tie!", True, (0, 0, 0))
         text_rect = text.get_rect(center=(screen_width / 2, screen_height / 2 - 150))
@@ -302,19 +302,18 @@ def gameplay():
 
 
         if player_turn == 2 and not game_over:
-            pygame.time.wait(100)
+
             board_copy = numbers.copy()
             bot_move = best_move(board_copy)
             if bot_move == 1:
                 numbers[0] = numbers[0] + numbers[1]
                 print("Bot Summed")
                 del numbers[1]
-                pygame.time.wait(100)
             elif bot_move == 2:
                 print("Bot Subtracted")
                 numbers[0] = numbers[0] - numbers[1]
                 del numbers[1]
-                pygame.time.wait(100)
+
             else:
                 print("Computer Is Lost")
 
