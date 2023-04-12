@@ -58,20 +58,15 @@ def draw_board(numbers):
 
 def start_screen():
     screen.blit(background, (0, 0))
-    text = font.render("Welcome to My Game!", True, black)
+    text = font.render("SumSub Game", True, black)
     text_rect = text.get_rect()
     text_rect.center = (screen.get_width() // 2, 100)
     screen.blit(text, text_rect)
 
-    p1_text = font.render("Player 1", True, black)
+    p1_text = font.render("Choose Who Does First Move", True, black)
     p1_rect = p1_text.get_rect()
-    p1_rect.center = (screen.get_width() // 3, 300)
+    p1_rect.center = (screen.get_width() // 2, 250)
     screen.blit(p1_text, p1_rect)
-
-    p2_text = font.render("Player 2", True, black)
-    p2_rect = p2_text.get_rect()
-    p2_rect.center = (2 * screen.get_width() // 3, 300)
-    screen.blit(p2_text, p2_rect)
 
     p1_button_rect = pygame.Rect(screen.get_width() // 3 - 50, 350, 100, 50)
     pygame.draw.rect(screen, black, p1_button_rect)
