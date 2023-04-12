@@ -87,15 +87,14 @@ def start_screen():
     pygame.display.flip()
 
 
-def check_score(board, turn):
+def check_score(board):
     if board[0] == 1:
         # print("Player 1 ")
         return -1
     elif board[0] == -1:
         # print("Player 2 ")
         return 1
-    elif len(board) == 1:
-        # print("Tie")
+    else:
         return 0
 
 #Minimax algorithm
@@ -112,12 +111,12 @@ def check_game_over(board):
         game_over = True
 
 
-def minimax(board, depth, ismaximizing, turn):
+def minimax(board, depth, ismaximizing):
     status = None
     if board[0] == -1:
         print("checking numbers: ", board, " depth: ", depth, "ismaxing?: ", ismaximizing)
-    status = check_score(board, turn)
-    maxdepth = 11
+    status = check_score(board)
+    maxdepth = 20
     if depth == maxdepth:
         return 0
     if status is not None:
@@ -136,9 +135,8 @@ def minimax(board, depth, ismaximizing, turn):
                 new_board[0] -= new_board[1]
             new_board.pop(1)
             # print(board)
-            turn = 2
-            score = minimax(new_board, depth + 1, False, turn)
-            # print("bs: ", bestscore, "board: ", new_board)
+            score = minimax(new_board, depth + 1, False)
+            print("bs: ", bestscore, "board: ", new_board)
             if score is not None:
                 bestscore = max(bestscore, score)
 
@@ -155,16 +153,15 @@ def minimax(board, depth, ismaximizing, turn):
             else:
                 new_board[0] -= new_board[1]
             new_board.pop(1)
-            turn = 1
-            score = minimax(board, depth + 1, True, turn) * -1
-            print("bs in not max: ", bestscore, "board: ", new_board)
+            score = minimax(board, depth + 1, True) * -1
             bestscore = min(bestscore, score)
+            print("bs in not max: ", bestscore, "board: ", new_board)
         return bestscore
 
 
 def best_move(board):
-    best_score = -1000
-    best_movee = -1000
+    best_score = None
+    best_movee = None
     for i in range(2):
         print(i)
         new_board = board[:]
@@ -172,17 +169,16 @@ def best_move(board):
             new_board[0] += new_board[1]
             new_board.pop(1)
             # print(new_board)
-            score = minimax(new_board, 0, False, 2)
-            if score > best_score:
-                best_score = score
-                best_movee = i + 1
+            score1 = minimax(new_board, 0, False)
         else:
             new_board[0] -= new_board[1]
             new_board.pop(1)
-            score = minimax(new_board, 0, False, 2)
-            if score > best_score:
-                best_score = score
-                best_movee = i + 1
+            score2 = minimax(new_board, 0, False)
+    if score1 > score2:
+        best_movee = 1
+    else:
+        best_movee = 2
+
     return best_movee
 # End of Minimax
 
